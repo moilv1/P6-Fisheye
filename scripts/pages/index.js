@@ -1,46 +1,47 @@
-    async function getPhotographers() {
-        // Ceci est un exemple de données pour avoir un affichage de photographes de test dès le démarrage du projet, 
-        // mais il sera à remplacer avec une requête sur le fichier JSON en utilisant "fetch".
-        let photographers = [
-            {
-                "name": "Ma data test",
-                "id": 1,
-                "city": "Paris",
-                "country": "France",
-                "tagline": "Ceci est ma data test",
-                "price": 400,
-                "portrait": "account.png"
-            },
-            {
-                "name": "Autre data test",
-                "id": 2,
-                "city": "Londres",
-                "country": "UK",
-                "tagline": "Ceci est ma data test 2",
-                "price": 500,
-                "portrait": "account.png"
-            },
-        ]
-        // et bien retourner le tableau photographers seulement une fois récupéré
-        return ({
-            photographers: [...photographers, ...photographers, ...photographers]})
-    }
 
-    async function displayData(photographers) {
-        const photographersSection = document.querySelector(".photographer_section");
-
-        photographers.forEach((photographer) => {
-            const photographerModel = photographerTemplate(photographer);
-            const userCardDOM = photographerModel.getUserCardDOM();
-            photographersSection.appendChild(userCardDOM);
-        });
+async function getPhotographers() {
+    // Fonction pour récupérer les données JSON
+    try {
+        const response = await fetch('./data/photographers.json');
+        if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+        }
+        const data = await response.json(); // Convertir la réponse en JSON
+        return data; // Retourne les données
+        
+        
+    } catch (error) {
+        console.error('Il y a eu un problème avec la récupération des données:', error);
     }
+}
 
-    async function init() {
-        // Récupère les datas des photographes
-        const { photographers } = await getPhotographers();
-        displayData(photographers);
-    }
-    
-    init();
+async function displayData(photographers) {
+    const photographersSection = document.querySelector(".photographer_section");
+
+    photographers.forEach((photographer) => {
+        const photographerModel = photographerTemplate(photographer);
+        const userCardDOM = photographerModel.getUserCardDOM();
+        photographersSection.appendChild(userCardDOM);
+
+
+        // redirection vers la page d'un photographe
+        userCardDOM.addEventListener("click", () => {
+            window.location.href = `photographer.html?id=${photographerModel.id}`
+        })
+    });
+}
+
+async function init() {
+    const {photographers, media}= await getPhotographers();
+
+    // Stock dans localStorage
+    localStorage.setItem('mediaList', JSON.stringify(media));
+    localStorage.setItem('photographers', JSON.stringify(photographers));
+
+    displayData(photographers);
+}
+init(); 
+
+
+
     

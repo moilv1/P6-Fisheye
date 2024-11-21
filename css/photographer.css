@@ -3,9 +3,30 @@
 }
 
 .photograph-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
     background-color: #FAFAFA;
+    gap: 10rem;
     height: 300px;
     margin: 0 100px;
+}
+.photograph-profile-info {
+    
+    margin: auto 0 auto auto;
+}
+.photograph-profile-portrait {
+    margin: auto ;
+}
+
+.contact_button{
+    margin: auto 0;
+}
+.photograph-profile-portrait img {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
 .contact_button {
@@ -74,3 +95,23 @@ form input {
     border: none;
     border-radius: 5px;
 }
+.City_Country {
+    font-size: 24px !important;
+    line-height: 17px;
+    
+}
+
+.Tagline {
+    font-size: 18px !important;
+    line-height: 23px !important;
+    margin: 0;
+    
+}
+h1{
+    color: #D3573C !important; 
+    font-size: 64px !important;
+    margin: 0;
+    line-height: 83.33px;
+    
+}
+
