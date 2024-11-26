@@ -1,6 +1,9 @@
 #contact_modal {
     display: none;
 }
+main{
+    margin: 0 100px;
+}
 
 .photograph-header {
     display: flex;
@@ -9,7 +12,6 @@
     background-color: #FAFAFA;
     gap: 10rem;
     height: 300px;
-    margin: 0 100px;
 }
 .photograph-profile-info {
     
@@ -115,3 +117,41 @@ h1{
     
 }
 
+.photograph-body{
+    display: flex;
+    flex-direction: row;
+    margin: 0 0 0 0;
+    justify-items: center;
+    gap: 7%;
+    flex-wrap: wrap;
+}
+.photograph-body article {
+    margin-top: 5rem;
+}
+.photograph-projectImg{
+    width: 350px;
+    height: 300px;
+    border-radius: 5px;
+}
+.info {
+    display: flex;
+    justify-content: space-between;
+}
+.heart{
+    display:flex;
+    align-items:center;
+    gap: 5px;
+}
+#heart-title{
+    font-family: DM Sans;
+    font-size: 17px;
+}
+.photograph-projectImg{
+    object-fit: cover;
+    width: 350px;
+    height: 300px;
+}
+.heart-icon {
+    width:20px;
+    height:20px;
+}

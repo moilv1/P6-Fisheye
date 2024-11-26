@@ -41,10 +41,16 @@ function photographerTemplate(data) {
 function PhotographePageHeader(data, urlId, section_info, section_portrait) {
     data.forEach(element => {
         if (urlId == element.id) {
-        console.log(element);
         section_info.innerHTML += `<h1>${element.name}</h1> <br/><p class="City_Country">${element.city}, ${element.country}</p></br><p class="Tagline">${element.tagline}</p>`
         section_portrait.innerHTML += `<img src="assets/photographers/${element.portrait}" alt="${element.name}">`
         }
     });
-    
 }
+function photographePageBody(data, urlId, section) {
+    data.forEach(element => {
+        let pathProjetImg = `assets/${urlId}/${element.image}`;
+        let pathProjetHeartIcon = `assets/icons/heart.png`
+        section.innerHTML += `<article class="project"><img src="${pathProjetImg}" data-id="${element.id}" class="photograph-projectImg"> <div class="info"><p id="heart-title">${element.title}</p><div class="heart"><p>${element.likes}</p><img class="heart-icon" src="${pathProjetHeartIcon}" alt="likes"></div></div></article>`; 
+    });
+}
+// ajout d'une fonction pour faire le body de la page photographe même système que "PhotographePageHeader"
