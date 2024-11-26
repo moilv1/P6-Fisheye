@@ -4,7 +4,6 @@ const photoInfo = document.querySelector('.photograph-profile-info');
 const photoInfoPortrait = document.querySelector('.photograph-profile-portrait');
 const photographBody = document.querySelector('.photograph-body');
 
-
 // 1. Fonction pour extraire l'ID depuis l'URL
 function getIdFromUrl() {
     const urlParams = new URLSearchParams(window.location.search);

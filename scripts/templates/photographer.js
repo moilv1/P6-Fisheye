@@ -48,9 +48,20 @@ function PhotographePageHeader(data, urlId, section_info, section_portrait) {
 }
 function photographePageBody(data, urlId, section) {
     data.forEach(element => {
-        let pathProjetImg = `assets/${urlId}/${element.image}`;
-        let pathProjetHeartIcon = `assets/icons/heart.png`
-        section.innerHTML += `<article class="project"><img src="${pathProjetImg}" data-id="${element.id}" class="photograph-projectImg"> <div class="info"><p id="heart-title">${element.title}</p><div class="heart"><p>${element.likes}</p><img class="heart-icon" src="${pathProjetHeartIcon}" alt="likes"></div></div></article>`; 
+        const pathProjetImg = `assets/${urlId}/${element.image}`;
+        const pathProjetHeartIcon = `assets/icons/heart.png`;
+        const article = document.createElement('article');
+
+        article.className= "projet-photograph";
+        article.setAttribute('data-id', element.id);
+        article.innerHTML += `<img src="${pathProjetImg}" class="photograph-projectImg"> <div class="info"><p id="heart-title">${element.title}</p><div class="heart"><p>${element.likes}</p><img class="heart-icon" src="${pathProjetHeartIcon}" alt="likes"></div></div>`; 
+        
+        article.addEventListener('click', () => {
+            const test = article.getAttribute('data-id');
+            console.log(test);
+        })
+        section.appendChild(article);
+
+        
     });
 }
-// ajout d'une fonction pour faire le body de la page photographe même système que "PhotographePageHeader"
