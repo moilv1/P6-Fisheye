@@ -1,8 +1,18 @@
 #contact_modal {
     display: none;
+    z-index: 9999999999999;
+    position: absolute;
+    top: 20%;
+    width: 100%;
 }
 main{
     margin: 0 100px;
+}
+html {
+    overflow-y: scroll;
+}
+body {
+    opacity: 1;
 }
 
 .photograph-header {

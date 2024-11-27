@@ -48,20 +48,18 @@ function PhotographePageHeader(data, urlId, section_info, section_portrait) {
 }
 function photographePageBody(data, urlId, section) {
     data.forEach(element => {
-        const pathProjetImg = `assets/${urlId}/${element.image}`;
+        const pathProjetMedia = `assets/${urlId}/${element.image}`;
         const pathProjetHeartIcon = `assets/icons/heart.png`;
         const article = document.createElement('article');
 
         article.className= "projet-photograph";
         article.setAttribute('data-id', element.id);
-        article.innerHTML += `<img src="${pathProjetImg}" class="photograph-projectImg"> <div class="info"><p id="heart-title">${element.title}</p><div class="heart"><p>${element.likes}</p><img class="heart-icon" src="${pathProjetHeartIcon}" alt="likes"></div></div>`; 
+        article.innerHTML += `<img src="${pathProjetMedia}" alt="${element.title}" class="photograph-projectImg"> <div class="info"><p id="heart-title">${element.title}</p><div class="heart"><p>${element.likes}</p><img class="heart-icon" src="${pathProjetHeartIcon}" alt="likes"></div></div>`; 
         
         article.addEventListener('click', () => {
             const test = article.getAttribute('data-id');
             console.log(test);
         })
         section.appendChild(article);
-
-        
     });
 }
