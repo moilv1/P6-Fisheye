@@ -127,8 +127,12 @@ h1{
     
 }
 
+
+/*Page Body */
+
 .photograph-body{
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     flex-direction: row;
     margin: 0 0 0 0;
     justify-items: center;
