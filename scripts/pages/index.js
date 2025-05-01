@@ -1,4 +1,3 @@
-
 async function getPhotographers() {
     // Fonction pour récupérer les données JSON
     try {
@@ -40,8 +39,4 @@ async function init() {
 
     displayData(photographers);
 }
-init(); 
-
-
-
-    
+init();
