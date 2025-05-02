@@ -46,7 +46,7 @@ function PhotographePageHeader(data, urlId, section_info, section_portrait) {
         }
     });
 }
-function createImageModal() {
+function createImageModal() { // add innerHTML 
     const modal = document.createElement("div");
     modal.id = "image-modal";
     modal.className = "modal";
@@ -60,7 +60,7 @@ function createImageModal() {
     modalImg.className = "modal-content";
     modalImg.id = "modal-image";
 
-    const caption = document.createElement("div");  //1 div conteant img et caption
+    const caption = document.createElement("div");
     caption.id = "caption";
     caption.append(modalImg)
 
@@ -72,7 +72,6 @@ function createImageModal() {
 }
 
 function photographePageBody(data, urlId, section) {
-    // Crée la modal si elle n'existe pas déjà
     if (!document.getElementById("image-modal")) {
         createImageModal();
     }
