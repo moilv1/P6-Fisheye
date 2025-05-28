@@ -1,41 +1,39 @@
-
 function photographerTemplate(data) {
     const { name, portrait, id, city, price, tagline, country } = data;
-    
-
     const picture = `assets/photographers/${portrait}`;
 
     function getUserCardDOM() {
-        const article = document.createElement( 'article' );
-        
-        const img = document.createElement( 'img' );
+        const article = document.createElement('article');
+
+        const img = document.createElement('img');
         img.setAttribute("src", picture);
         img.setAttribute("alt", name);
 
-        const h2 = document.createElement( 'h2' );
+        const h2 = document.createElement('h2');
         h2.textContent = name;
 
         const pCityCountry = document.createElement('p');
-        pCityCountry.innerHTML += `${city}, ${country} <br/>`;
-        pCityCountry.className = "City_Country"
+        pCityCountry.innerHTML = `${city}, ${country}<br/>`;
+        pCityCountry.className = "City_Country";
 
         const pTagline = document.createElement('p');
         pTagline.innerHTML += `${tagline} <br/>`;
-        pTagline.className = "Tagline"
+        pTagline.className = "Tagline";
 
         const pPrice = document.createElement('p');
         pPrice.innerHTML += `${price}€/jour`;
         pPrice.className = "Price";
-        
 
         article.appendChild(img);
         article.appendChild(h2);
         article.appendChild(pCityCountry);
         article.appendChild(pTagline);
         article.appendChild(pPrice);
-        return (article);
+
+        return article;
     }
-    return { name, picture, id, getUserCardDOM }
+    
+    return { name, picture, id, getUserCardDOM };
 }
 
 function PhotographePageHeader(data, urlId, section_info, section_portrait) {
@@ -46,7 +44,7 @@ function PhotographePageHeader(data, urlId, section_info, section_portrait) {
         }
     });
 }
-function createImageModal() { // add innerHTML 
+function createImageModal() {
     const modal = document.createElement("div");
     modal.id = "image-modal";
     modal.className = "modal";
@@ -54,7 +52,15 @@ function createImageModal() { // add innerHTML
 
     const closeBtn = document.createElement("span");
     closeBtn.className = "close";
-    closeBtn.innerHTML = `X`
+    closeBtn.textContent = "X";
+
+    const prevBtn = document.createElement("span");
+    prevBtn.className = "nav prev";
+    prevBtn.textContent = "←";
+
+    const nextBtn = document.createElement("span");
+    nextBtn.className = "nav next";
+    nextBtn.textContent = "→";
 
     const modalImg = document.createElement("img");
     modalImg.className = "modal-content";
@@ -62,12 +68,8 @@ function createImageModal() { // add innerHTML
 
     const caption = document.createElement("div");
     caption.id = "caption";
-    caption.append(modalImg)
 
-    modal.appendChild(closeBtn);
-    modal.appendChild(modalImg);
-    modal.appendChild(caption);
-
+    modal.append(closeBtn, prevBtn, modalImg, nextBtn, caption);
     document.body.appendChild(modal);
 }
 
@@ -80,10 +82,17 @@ function photographePageBody(data, urlId, section) {
     const modalImg = document.getElementById("modal-image");
     const captionText = document.getElementById("caption");
     const closeBtn = modal.querySelector(".close");
+    const prevBtn = modal.querySelector(".prev");
+    const nextBtn = modal.querySelector(".next");
 
-    data.forEach(element => {
+    let currentIndex = 0;
+    const mediaItems = [];
+
+    data.forEach((element, index) => {
         const pathProjetMedia = `assets/${urlId}/${element.image}`;
         const pathProjetHeartIcon = `assets/icons/heart.png`;
+
+        mediaItems.push({ src: pathProjetMedia, title: element.title });
 
         const article = document.createElement('article');
         article.className = "projet-photograph";
@@ -100,25 +109,43 @@ function photographePageBody(data, urlId, section) {
             </div>
         `;
 
-        // Ouvre la modal au clic
         article.querySelector('img').addEventListener('click', () => {
-            modal.style.display = "block";
-            modalImg.src = pathProjetMedia;
-            captionText.textContent = element.title;
+            currentIndex = index;
+            showModalImage();
         });
 
         section.appendChild(article);
     });
 
-    // Ferme la modal au clic sur la croix
-    closeBtn.addEventListener('click', () => {
-        modal.style.display = "none";
+    function showModalImage() {
+        modal.style.display = "flex";
+        modalImg.src = mediaItems[currentIndex].src;
+        captionText.textContent = mediaItems[currentIndex].title;
+    }
+
+    function showNextImage() {
+        currentIndex = (currentIndex + 1) % mediaItems.length;
+        showModalImage();
+    }
+
+    function showPrevImage() {
+        currentIndex = (currentIndex - 1 + mediaItems.length) % mediaItems.length;
+        showModalImage();
+    }
+
+    nextBtn.addEventListener('click', showNextImage);
+    prevBtn.addEventListener('click', showPrevImage);
+    closeBtn.addEventListener('click', () => modal.style.display = "none");
+
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) modal.style.display = "none";
     });
 
-    // Ferme si on clique à l'extérieur de l'image
-    window.addEventListener('click', (event) => {
-        if (event.target === modal) {
-            modal.style.display = "none";
+    window.addEventListener('keydown', (e) => {
+        if (modal.style.display === "block") {
+            if (e.key === "ArrowRight") showNextImage();
+            if (e.key === "ArrowLeft") showPrevImage();
+            if (e.key === "Escape") modal.style.display = "none";
         }
     });
 }
