@@ -17,11 +17,11 @@ function photographerTemplate(data) {
         pCityCountry.className = "City_Country";
 
         const pTagline = document.createElement('p');
-        pTagline.innerHTML += `${tagline} <br/>`;
+        pTagline.innerHTML = `${tagline} <br/>`;
         pTagline.className = "Tagline";
 
         const pPrice = document.createElement('p');
-        pPrice.innerHTML += `${price}€/jour`;
+        pPrice.innerHTML = `${price}€/jour`;
         pPrice.className = "Price";
 
         article.appendChild(img);
@@ -32,15 +32,21 @@ function photographerTemplate(data) {
 
         return article;
     }
-    
+
     return { name, picture, id, getUserCardDOM };
 }
 
 function PhotographePageHeader(data, urlId, section_info, section_portrait) {
     data.forEach(element => {
         if (urlId == element.id) {
-        section_info.innerHTML += `<h1>${element.name}</h1> <br/><p class="City_Country">${element.city}, ${element.country}</p></br><p class="Tagline">${element.tagline}</p>`
-        section_portrait.innerHTML += `<img src="assets/photographers/${element.portrait}" alt="${element.name}">`
+            section_info.innerHTML += `
+                <h1>${element.name}</h1>
+                <br/>
+                <p class="City_Country">${element.city}, ${element.country}</p>
+                </br>
+                <p class="Tagline">${element.tagline}</p>
+            `;
+            section_portrait.innerHTML += `<img src="assets/photographers/${element.portrait}" alt="${element.name}">`;
         }
     });
 }
@@ -62,14 +68,14 @@ function createImageModal() {
     nextBtn.className = "nav next";
     nextBtn.textContent = "→";
 
-    const modalImg = document.createElement("img");
-    modalImg.className = "modal-content";
-    modalImg.id = "modal-image";
+    const mediaContainer = document.createElement("div");
+    mediaContainer.className = "modal-content";
+    mediaContainer.id = "modal-media";
 
     const caption = document.createElement("div");
     caption.id = "caption";
 
-    modal.append(closeBtn, prevBtn, modalImg, nextBtn, caption);
+    modal.append(closeBtn, prevBtn, mediaContainer, nextBtn, caption);
     document.body.appendChild(modal);
 }
 
@@ -79,7 +85,7 @@ function photographePageBody(data, urlId, section) {
     }
 
     const modal = document.getElementById("image-modal");
-    const modalImg = document.getElementById("modal-image");
+    const mediaContainer = document.getElementById("modal-media");
     const captionText = document.getElementById("caption");
     const closeBtn = modal.querySelector(".close");
     const prevBtn = modal.querySelector(".prev");
@@ -89,17 +95,27 @@ function photographePageBody(data, urlId, section) {
     const mediaItems = [];
 
     data.forEach((element, index) => {
-        const pathProjetMedia = `assets/${urlId}/${element.image}`;
+        const isVideo = element.video !== undefined && element.video !== "";
+        const mediaFile = isVideo ? element.video : element.image;
+        const mediaType = isVideo ? "video" : "image";
+        const pathProjetMedia = `assets/${urlId}/${mediaFile}`;
         const pathProjetHeartIcon = `assets/icons/heart.png`;
 
-        mediaItems.push({ src: pathProjetMedia, title: element.title });
+        mediaItems.push({ src: pathProjetMedia, title: element.title, type: mediaType });
 
         const article = document.createElement('article');
         article.className = "projet-photograph";
         article.setAttribute('data-id', element.id);
 
+        const mediaHTML = isVideo
+            ? `<video class="photograph-projectVideo" controls>
+                   <source src="${pathProjetMedia}" type="video/mp4">
+                   Votre navigateur ne peut pas lire cette vidéo.
+               </video>`
+            : `<img src="${pathProjetMedia}" alt="${element.title}" class="photograph-projectImg">`;
+
         article.innerHTML = `
-            <img src="${pathProjetMedia}" alt="${element.title}" class="photograph-projectImg">
+            ${mediaHTML}
             <div class="info">
                 <p id="heart-title">${element.title}</p>
                 <div class="heart">
@@ -109,28 +125,51 @@ function photographePageBody(data, urlId, section) {
             </div>
         `;
 
-        article.querySelector('img').addEventListener('click', () => {
+        const mediaElement = article.querySelector('img, video');
+        mediaElement.addEventListener('click', () => {
             currentIndex = index;
-            showModalImage();
+            showModalMedia();
         });
 
         section.appendChild(article);
     });
 
-    function showModalImage() {
+    function showModalMedia() {
         modal.style.display = "flex";
-        modalImg.src = mediaItems[currentIndex].src;
-        captionText.textContent = mediaItems[currentIndex].title;
+        const currentMedia = mediaItems[currentIndex];
+
+        mediaContainer.innerHTML = ""; // Clear previous media
+
+        let mediaElement;
+        if (currentMedia.type === "image") {
+            mediaElement = document.createElement("img");
+            mediaElement.src = currentMedia.src;
+            mediaElement.alt = currentMedia.title;
+        } else {
+            mediaElement = document.createElement("video");
+            mediaElement.controls = true;
+            mediaElement.autoplay = true;
+
+            const source = document.createElement("source");
+            source.src = currentMedia.src;
+            source.type = "video/mp4";
+
+            mediaElement.appendChild(source);
+        }
+
+        mediaElement.className = "modal-content";
+        mediaContainer.appendChild(mediaElement);
+        captionText.textContent = currentMedia.title;
     }
 
     function showNextImage() {
         currentIndex = (currentIndex + 1) % mediaItems.length;
-        showModalImage();
+        showModalMedia();
     }
 
     function showPrevImage() {
         currentIndex = (currentIndex - 1 + mediaItems.length) % mediaItems.length;
-        showModalImage();
+        showModalMedia();
     }
 
     nextBtn.addEventListener('click', showNextImage);
@@ -139,13 +178,5 @@ function photographePageBody(data, urlId, section) {
 
     window.addEventListener('click', (e) => {
         if (e.target === modal) modal.style.display = "none";
-    });
-
-    window.addEventListener('keydown', (e) => {
-        if (modal.style.display === "block") {
-            if (e.key === "ArrowRight") showNextImage();
-            if (e.key === "ArrowLeft") showPrevImage();
-            if (e.key === "Escape") modal.style.display = "none";
-        }
     });
 }
