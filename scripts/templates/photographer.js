@@ -62,20 +62,21 @@ function createImageModal() {
 
     const prevBtn = document.createElement("span");
     prevBtn.className = "nav prev";
-    prevBtn.textContent = "←";
+    prevBtn.textContent = "<";
 
     const nextBtn = document.createElement("span");
     nextBtn.className = "nav next";
-    nextBtn.textContent = "→";
+    nextBtn.textContent = ">";
 
     const mediaContainer = document.createElement("div");
-    mediaContainer.className = "modal-content";
     mediaContainer.id = "modal-media";
 
-    const caption = document.createElement("div");
+    const caption = document.createElement("span");
     caption.id = "caption";
 
-    modal.append(closeBtn, prevBtn, mediaContainer, nextBtn, caption);
+    mediaContainer.appendChild(caption);
+
+    modal.append(closeBtn, prevBtn, mediaContainer, nextBtn);
     document.body.appendChild(modal);
 }
 
@@ -138,7 +139,11 @@ function photographePageBody(data, urlId, section) {
         modal.style.display = "flex";
         const currentMedia = mediaItems[currentIndex];
 
-        mediaContainer.innerHTML = ""; // Clear previous media
+        Array.from(mediaContainer.children).forEach(child => {
+            if (child.id !== "caption") {
+                mediaContainer.removeChild(child);
+            }
+        });
 
         let mediaElement;
         if (currentMedia.type === "image") {
@@ -148,17 +153,18 @@ function photographePageBody(data, urlId, section) {
         } else {
             mediaElement = document.createElement("video");
             mediaElement.controls = true;
-            mediaElement.autoplay = true;
+            mediaElement.autoplay = false;
 
             const source = document.createElement("source");
             source.src = currentMedia.src;
             source.type = "video/mp4";
-
             mediaElement.appendChild(source);
         }
 
         mediaElement.className = "modal-content";
-        mediaContainer.appendChild(mediaElement);
+
+        // Insérer avant la légende dans le même conteneur
+        mediaContainer.insertBefore(mediaElement, captionText);
         captionText.textContent = currentMedia.title;
     }
 
