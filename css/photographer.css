@@ -1,10 +1,10 @@
 #contact_modal {
     display: none;
     background: #DB8876;
-    z-index: 9999999999999;
+    z-index: 99;
     position: absolute;
     top: 8%;
-    width: 100%;
+    width: 80%;
 }
 main{
     margin: 0 100px;
@@ -53,7 +53,7 @@ body {
 
 .modal {
     border-radius: 5px;
-    background-color: #DB8876;
+    background-color: #ffffff;
     width: 50%;
     display: flex;
     flex-direction: column;
@@ -210,17 +210,16 @@ h1{
 }
 .nav{
     position: relative;
-    font-size: 300px;
+    font-size: 120px;
     top: -5%;
 }
 .next{
     position: relative;
-    left: -12.5%;
-    font-size: 300px;
+    left: -15%;
     top: -5%;
 }
 .prev{
-    right: -12.5%;
+    right: -15%;
 }
 #modal-media{
     display: flex;
@@ -229,4 +228,169 @@ h1{
 }
 #caption{
     font-size: 24px;
+}
+/* TABLETTES : 768px à 1024px */
+@media screen and (max-width: 1024px) {
+    main {
+        margin: 0 50px;
+    }
+
+    .photograph-header {
+        grid-template-columns: 1fr;
+        text-align: center;
+        height: auto;
+        gap: 20px;
+        padding: 40px 0;
+    }
+
+    .photograph-projectImg,
+    .photograph-projectVideo {
+        width: 300px;
+        height: 250px;
+    }
+
+    .modal-content {
+        width: 90%;
+        height: auto;
+    }
+
+    .close {
+        top: 20px;
+        right: 50px;
+        font-size: 30px;
+    }
+
+    .nav {
+        font-size: 80px;
+    }
+
+    .next {
+        left: -10%;
+    }
+
+    .prev {
+        right: -10%;
+    }
+
+    .modal header h2 {
+        font-size: 48px;
+    }
+
+    form label {
+        font-size: 28px;
+    }
+
+    h1 {
+        font-size: 48px !important;
+    }
+
+    .City_Country {
+        font-size: 18px !important;
+    }
+
+    .Tagline {
+        font-size: 16px !important;
+    }
+
+    #caption {
+        font-size: 20px;
+    }
+
+    .photograph-body {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+    }
+}
+
+/* MOBILES : moins de 768px */
+@media screen and (max-width: 767px) {
+    main {
+        margin: 0 20px;
+    }
+
+    .photograph-header {
+        grid-template-columns: 1fr;
+        height: auto;
+        padding: 30px 0;
+        text-align: center;
+    }
+
+    .photograph-profile-portrait img {
+        height: 150px;
+        width: 150px;
+    }
+
+    .contact_button {
+        width: 140px;
+        height: 55px;
+        font-size: 16px;
+    }
+
+    .modal {
+        width: 95%;
+        padding: 20px;
+    }
+
+    .modal header h2 {
+        font-size: 36px;
+    }
+
+    form label {
+        font-size: 22px;
+    }
+
+    h1 {
+        font-size: 36px !important;
+        line-height: normal;
+    }
+
+    .City_Country {
+        font-size: 16px !important;
+    }
+
+    .Tagline {
+        font-size: 14px !important;
+    }
+
+    .photograph-body {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .photograph-projectImg,
+    .photograph-projectVideo {
+        width: 100%;
+        height: auto;
+    }
+
+    .modal-content {
+        width: 100%;
+        height: auto;
+    }
+
+    .close {
+        top: 20px;
+        right: 20px;
+        font-size: 28px;
+    }
+
+    .nav {
+        font-size: 60px;
+    }
+
+    .next,
+    .prev {
+        left: unset;
+        right: unset;
+    }
+
+    #image-modal {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #caption {
+        font-size: 18px;
+        text-align: center;
+    }
 }

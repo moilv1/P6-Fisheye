@@ -5,7 +5,6 @@ body {
     margin: 0;
 }
 
-
 header {
     display: flex;
     flex-direction: row;
@@ -93,4 +92,74 @@ h1 {
     font-size: 9px;
     line-height: 12px;
     color: #757575;
+}
+
+/* TABLETTES : entre 768px et 1024px */
+@media screen and (max-width: 1024px) {
+    .photographer_section {
+        grid-template-columns: 1fr 1fr;
+        gap: 50px;
+        margin-top: 80px;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+        margin-right: 50px;
+    }
+
+    .logo {
+        height: 40px;
+        margin-left: 50px;
+    }
+
+    .photographer_section article h2 {
+        font-size: 28px;
+    }
+}
+
+/* MOBILES : moins de 768px */
+@media screen and (max-width: 767px) {
+    header {
+        flex-direction: column;
+        height: auto;
+        padding: 20px 0;
+    }
+
+    h1 {
+        margin: 10px 0;
+        font-size: 1.5rem;
+        text-align: center;
+    }
+
+    .logo {
+        margin: 0 auto;
+        height: 40px;
+    }
+
+    .photographer_section {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        margin-top: 50px;
+    }
+
+    .photographer_section article h2 {
+        font-size: 24px;
+    }
+
+    .photographer_section article img {
+        height: 150px;
+        width: 150px;
+    }
+
+    .City_Country {
+        font-size: 12px;
+    }
+
+    .Tagline {
+        font-size: 10px;
+    }
+
+    .Price {
+        font-size: 9px;
+    }
 }
