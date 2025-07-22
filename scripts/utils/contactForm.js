@@ -6,12 +6,10 @@ let idUrl
 
 function displayModal() {
 	modal.style.display = "block";
-    main.style.opacity = "0.5";
+    main.style.opacity = "0";
     html.style.overflow = "hidden";
     idUrl = getIdFromUrl()
     getNameByID(idUrl, photographers)
-    
-    
 }
 function closeModal() {
     modal.style.display = "none";
