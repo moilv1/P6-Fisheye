@@ -1,7 +1,7 @@
 const modal = document.getElementById("contact_modal");
 const main = document.querySelector("main");
 const html = document.querySelector("html");
-const photographInfo = document.querySelector(".photograph-info");
+const photographInfo = document.querySelector(".contact_photograph-info");
 let idUrl
 
 function displayModal() {
