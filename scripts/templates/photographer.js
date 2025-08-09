@@ -185,4 +185,13 @@ function photographePageBody(data, urlId, section) {
     window.addEventListener('click', (e) => {
         if (e.target === modal) modal.style.display = "none";
     });
+
+    document.addEventListener("keydown", function(event) {
+        if (event.key === "ArrowRight") {
+            showNextImage();
+        }
+        if (event.key === "ArrowLeft") {
+            showPrevImage();
+        }
+    })
 }
