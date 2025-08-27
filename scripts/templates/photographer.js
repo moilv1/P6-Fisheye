@@ -186,12 +186,16 @@ function photographePageBody(data, urlId, section) {
         if (e.target === modal) modal.style.display = "none";
     });
 
-    document.addEventListener("keydown", function(event) {
+    document.onkeydown = function(event) {
         if (event.key === "ArrowRight") {
             showNextImage();
         }
         if (event.key === "ArrowLeft") {
             showPrevImage();
         }
-    })
+        if (event.key === "Escape") {
+            modal.style.display = "none";
+            document.onkeydown = null; // désactive quand on ferme
+        }
+    };
 }
