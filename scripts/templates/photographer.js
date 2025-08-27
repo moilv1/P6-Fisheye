@@ -132,6 +132,15 @@ function photographePageBody(data, urlId, section) {
             showModalMedia();
         });
 
+        const heartDiv = article.querySelector(".heart");
+        const heartIcon = heartDiv.querySelector(".heart-icon");
+        
+
+        heartDiv.addEventListener("click", () => {
+            heartIcon.style.scale = "1.5";
+        });
+
+
         section.appendChild(article);
     });
 
