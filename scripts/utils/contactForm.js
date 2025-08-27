@@ -6,7 +6,7 @@ let idUrl
 
 function displayModal() {
 	modal.style.display = "block";
-    main.style.opacity = "0";
+    main.style.opacity = "0.5";
     html.style.overflow = "hidden";
     idUrl = getIdFromUrl()
     getNameByID(idUrl, photographers)
