@@ -152,6 +152,72 @@ h1{
     line-height: 83.33px;
 }
 
+/* filters */
+.filter_container {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 2rem;
+    position: relative;
+    width: 200px;
+    font-family: Arial, sans-serif;
+}
+
+#filter-name{
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.custom-select {
+  position: relative;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.selected {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    color: white;
+    width: 150px;
+    height: 40px;
+    border: none;
+    background-color: #901C1C;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 8px 10px;
+    align-items: center;
+    
+}
+
+.options {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: none;
+  border-top: 1px solid #ccc;
+  background-color: #901C1C;
+  position: absolute;
+  width: 100%;
+  z-index: 10;
+}
+
+
+.options li {
+    display: flex;
+    padding: 8px 10px;
+    background-color: #901C1C;
+    border-bottom: 1px white solid;
+    color: #ffffff;
+    width: 150px;
+    height: 40px;
+    border-width: 80%;
+    font-weight: bold;
+    align-content: center;
+}
+
 
 /*Page Body */
 
