@@ -1,3 +1,6 @@
+// ==========================
+// PHOTOGRAPHER TEMPLATE
+// ==========================
 function photographerTemplate(data) {
     const { name, portrait, id, city, price, tagline, country } = data;
     const picture = `assets/photographers/${portrait}`;
@@ -36,6 +39,9 @@ function photographerTemplate(data) {
     return { name, picture, id, getUserCardDOM };
 }
 
+// ==========================
+// PHOTOGRAPHER PAGE HEADER
+// ==========================
 function PhotographePageHeader(data, urlId, section_info, section_portrait) {
     data.forEach(element => {
         if (urlId == element.id) {
@@ -50,6 +56,10 @@ function PhotographePageHeader(data, urlId, section_info, section_portrait) {
         }
     });
 }
+
+// ==========================
+// MODAL
+// ==========================
 function createImageModal() {
     const modal = document.createElement("div");
     modal.id = "image-modal";
@@ -75,11 +85,59 @@ function createImageModal() {
     caption.id = "caption";
 
     mediaContainer.appendChild(caption);
-
     modal.append(closeBtn, prevBtn, mediaContainer, nextBtn);
     document.body.appendChild(modal);
 }
 
+// ==========================
+// FACTORY METHOD FOR MEDIA ITEMS
+// ==========================
+function createMediaItem({ src, title, likes, type }) {
+    const article = document.createElement("article");
+    article.className = "projet-photograph";
+
+    // Create the media part (image or video)
+    let mediaHTML;
+    if (type === "image") {
+        mediaHTML = `<img src="${src}" alt="${title}" class="photograph-projectImg">`;
+    } else {
+        mediaHTML = `<video class="photograph-projectVideo" controls>
+                        <source src="${src}" type="video/mp4">
+                        Votre navigateur ne peut pas lire cette vidéo.
+                     </video>`;
+    }
+
+    article.innerHTML = `
+        ${mediaHTML}
+        <div class="info">
+            <p class="media-title">${title}</p>
+            <div class="heart" data-liked="false">
+                <p>${likes}</p>
+                <img class="heart-icon" src="assets/icons/heart.png" alt="likes">
+            </div>
+        </div>
+    `;
+
+    // Heart click animation
+    const heartDiv = article.querySelector(".heart");
+    const heartIcon = heartDiv.querySelector(".heart-icon");
+    const likesCount = heartDiv.querySelector("p");
+
+    heartDiv.addEventListener("click", () => {
+        if (heartDiv.getAttribute("data-liked") === "false") {
+            likesCount.textContent = parseInt(likesCount.textContent) + 1;
+            heartDiv.setAttribute("data-liked", "true");
+            heartIcon.style.scale = '1.5';
+        }
+    });
+
+    return article;
+}
+
+
+// ==========================
+// PHOTOGRAPHER PAGE CONTENT
+// ==========================
 function photographePageBody(data, urlId, section) {
     if (!document.getElementById("image-modal")) {
         createImageModal();
@@ -100,31 +158,16 @@ function photographePageBody(data, urlId, section) {
         const mediaFile = isVideo ? element.video : element.image;
         const mediaType = isVideo ? "video" : "image";
         const pathProjetMedia = `assets/${urlId}/${mediaFile}`;
-        const pathProjetHeartIcon = `assets/icons/heart.png`;
 
-        mediaItems.push({ src: pathProjetMedia, title: element.title, type: mediaType });
+        mediaItems.push({ src: pathProjetMedia, title: element.title, type: mediaType, likes: element.likes, id: element.id });
 
-        const article = document.createElement('article');
-        article.className = "projet-photograph";
-        article.setAttribute('data-id', element.id);
-
-        const mediaHTML = isVideo
-            ? `<video class="photograph-projectVideo" controls>
-                   <source src="${pathProjetMedia}" type="video/mp4">
-                   Votre navigateur ne peut pas lire cette vidéo.
-               </video>`
-            : `<img src="${pathProjetMedia}" alt="${element.title}" class="photograph-projectImg">`;
-
-        article.innerHTML = `
-            ${mediaHTML}
-            <div class="info">
-                <p id="heart-title">${element.title}</p>
-                <div class="heart">
-                    <p>${element.likes}</p>
-                    <img class="heart-icon" src="${pathProjetHeartIcon}" alt="likes">
-                </div>
-            </div>
-        `;
+        // Use the Factory Method to create media article
+        const article = createMediaItem({
+            src: pathProjetMedia,
+            title: element.title,
+            likes: element.likes,
+            type: mediaType
+        });
 
         const mediaElement = article.querySelector('img, video');
         mediaElement.addEventListener('click', () => {
@@ -132,18 +175,12 @@ function photographePageBody(data, urlId, section) {
             showModalMedia();
         });
 
-        const heartDiv = article.querySelector(".heart");
-        const heartIcon = heartDiv.querySelector(".heart-icon");
-        
-
-        heartDiv.addEventListener("click", () => {
-            heartIcon.style.scale = "1.5";
-        });
-
-
         section.appendChild(article);
     });
 
+    // ==================
+    // DISPLAY MODAL
+    // ==================
     function showModalMedia() {
         modal.style.display = "flex";
         const currentMedia = mediaItems[currentIndex];
@@ -172,7 +209,7 @@ function photographePageBody(data, urlId, section) {
 
         mediaElement.className = "modal-content";
 
-        // Insérer avant la légende dans le même conteneur
+        
         mediaContainer.insertBefore(mediaElement, captionText);
         captionText.textContent = currentMedia.title;
     }
@@ -204,7 +241,7 @@ function photographePageBody(data, urlId, section) {
         }
         if (event.key === "Escape") {
             modal.style.display = "none";
-            document.onkeydown = null; // désactive quand on ferme
+            document.onkeydown = null;
         }
     };
 }
