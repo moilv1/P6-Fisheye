@@ -1,14 +1,15 @@
 let projetPhotographe = [];
 let projectId;
+
 const photoInfo = document.querySelector('.photograph-profile-info');
 const photoInfoPortrait = document.querySelector('.photograph-profile-portrait');
 const photographBody = document.querySelector('.photograph-body');
-
 
 function getIdFromUrl() {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get('id');
 }
+
 function trieMedialistByIdPhotographe(data) {
     data.forEach(element => {
         if (element.photographerId == projectId) {
@@ -17,19 +18,9 @@ function trieMedialistByIdPhotographe(data) {
     });
 }
 
-
-
-
-
-
 // récup le local storage
 const mediaList = JSON.parse(localStorage.getItem('mediaList'));
 const photographers = JSON.parse(localStorage.getItem('photographers'));
-
-
-
-
-
 
 // Exécution
 function init() {

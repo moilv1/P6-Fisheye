@@ -178,7 +178,7 @@ h1{
 .heart{
     display:flex;
     align-items:center;
-    gap: 5px;
+    gap: 10px;
 }
 #heart-title{
     font-family: DM Sans;

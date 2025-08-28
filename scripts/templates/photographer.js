@@ -127,7 +127,11 @@ function createMediaItem({ src, title, likes, type }) {
         if (heartDiv.getAttribute("data-liked") === "false") {
             likesCount.textContent = parseInt(likesCount.textContent) + 1;
             heartDiv.setAttribute("data-liked", "true");
-            heartIcon.style.scale = '1.5';
+            heartIcon.style.scale = '1.8';
+        } else {
+            likesCount.textContent = parseInt(likesCount.textContent) - 1;
+            heartDiv.setAttribute("data-liked", "false");
+            heartIcon.style.scale = '1';
         }
     });
 
