@@ -6,6 +6,9 @@
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
     <title>Fisheye - photographe </title>
+    <script type="module" src="scripts/templates/photographer.js"></script>
+    <script type="module" src="./scripts/pages/photographer.js"></script>
+    <script type="module" src="./scripts/utils/contactForm.js"></script>
   </head>
   <body>
     <main id="main">
@@ -14,7 +17,7 @@
       </header>
       <div class="photograph-header">
         <div class="photograph-profile-info"></div>
-        <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
+        <button class="contact_button" id="contactButton">Contactez-moi</button>
         <div class="photograph-profile-portrait"></div>
       </div>
       <div class="photograph-body"></div>
@@ -23,7 +26,7 @@
 			<div class="modal-info">
 				<div class="contact_header">
           <h2>Contactez-moi</h2>
-          <img src="assets/icons/close.svg" onclick="closeModal()" />
+          <img src="assets/icons/close.svg" id="closeButton" onclick="closeModal()" />
         </div>
         <div class="contact_photograph-info">
         </div>
@@ -44,12 +47,9 @@
 						<label>Votre message</label>
 						<input type="text" id="input:text" />
 					</div>
-          <button type="submit" class="contact_button contact_button-send">Envoyer</button>
+          <button type="submit" id="sendButton" class="contact_button contact_button-send">Envoyer</button>
 				</form>
 			</div>
 		</div>
-    <script src="scripts/templates/photographer.js"></script>
-    <script  src="./scripts/pages/photographer.js"></script>
-    <script src="./scripts/utils/contactForm.js"></script>
   </body>
 </html>
