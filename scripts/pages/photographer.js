@@ -27,15 +27,15 @@ function sortMedia(mediaList, criteria) {
   const sorted = [...mediaList];
 
   switch(criteria) {
-    case 'popularity':
-      sorted.sort((a, b) => b.likes - a.likes);
-      break;
-    case 'date':
-      sorted.sort((a, b) => new Date(b.date) - new Date(a.date));
-      break;
-    case 'title':
-      sorted.sort((a, b) => a.title.localeCompare(b.title));
-      break;
+  case 'popularity':
+    sorted.sort((a, b) => b.likes - a.likes);
+    break;
+  case 'date':
+    sorted.sort((a, b) => new Date(b.date) - new Date(a.date));
+    break;
+  case 'title':
+    sorted.sort((a, b) => a.title.localeCompare(b.title));
+    break;
   }
   return sorted;
 }
@@ -80,7 +80,7 @@ options.querySelectorAll('li').forEach(option => {
 
     // Trier les médias en fonction de la sélection
     const sorted = sortMedia(projetPhotographe, currentValue);
-    photographBody.innerHTML = "";
+    photographBody.innerHTML = '';
     photographePageBody(sorted, projectId, photographBody);
   });
 });
