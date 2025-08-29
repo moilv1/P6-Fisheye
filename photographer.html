@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
   <head>
     <link href="css/style.css" rel="stylesheet" type="text/css" />
     <meta charset="utf-8">
@@ -14,54 +14,54 @@
   <body>
     <main id="main">
       <header>
-        <a href="./index.html"> <img src="assets/images/logo.png" class="logo" alt="fisheye logo" /></a>    
+        <a href="./index.html"> <img src="assets/images/logo.png" class="logo" alt="Fisheye Home page" /></a>    
       </header>
       <div class="photograph-header">
-        <div class="photograph-profile-info"></div>
-        <button class="contact_button" id="contactButton">Contactez-moi</button>
+        <div class="photograph-profile-info" role="region" aria-label="Informations du photographe"></div>
+        <button class="contact_button" id="contactButton" aria-haspopup="dialog" aria-controls="contact_modal" aria-label="Contact Me">Contactez-moi</button>
         <div class="photograph-profile-portrait"></div>
       </div>
       <div class="filter_container">
-        <span id="filter-name">Trier par</span>
-        <div class="custom-select">
-          <div class="selected">
-            Popularité <i class="fa-solid fa-chevron-down select-arrow"></i>
-          </div>
-          <ul class="options">
-            <li data-value="popularity">Popularité</li>
-            <li data-value="date">Date</li>
-            <li data-value="title">Titre</li>
+        <span id="filter-name" for="custom-select">Trier par</span>
+        <butt class="custom-select" role="combobox" aria-haspopup="listbox" aria-expanded="false">
+          <button class="selected" id="custom-select" aria-labelledby="filter-name custom-select" aria-controls="options-list" aria-expanded="false">
+            Popularité <i class="fa-solid fa-chevron-down select-arrow" aria-hidden="true" ></i>
+          </button>
+          <ul class="options" id="options-list" role="listbox" tabindex="-1">
+            <li role="option" data-value="popularity" aria-selected="true" tabindex="0">Popularité</li>
+            <li role="option" data-value="date" tabindex="0">Date</li>
+            <li role="option" data-value="title" tabindex="0">Titre</li>
           </ul>
         </div>
       </div>
-
-
       <div class="photograph-body"></div>
+      <div class="photograph-banner"></div>
     </main>
-    <div id="contact_modal">
+    <div id="contact_modal" role="dialog" aria-labelledby="contactTitle" aria-modal="true" hidden>
 			<div class="modal-info">
 				<div class="contact_header">
-          <h2>Contactez-moi</h2>
-          <img src="assets/icons/close.svg" id="closeButton" onclick="closeModal()" />
+          <h2 >Contactez-moi</h2>
+          <button id="closeButton" type="button" aria-label="Fermer le formulaire de contact">
+            <img src="assets/icons/close.svg" alt="" aria-hidden="true" /> <!-- icône décorative -->
+          </button>
         </div>
-        <div class="contact_photograph-info">
-        </div>
-				<form>
+        <div class="contact_photograph-info"></div>
+				<form aria-describedby="contactTitle">
 					<div>
-						<label>Prénom</label>
-						<input type="text" />
+						<label for="prenom">Prénom</label>
+						<input type="text" id="prenom" name="prenom" required  />
 					</div>
           <div>
-						<label>Nom</label>
-						<input type="text" />
+						<label for="nom">Nom</label>
+						<input type="text" id="nom" name="nom" required  />
 					</div>
           <div>
-						<label>E-mail</label>
-						<input type="text" />
+						<label for="email">E-mail</label>
+						<input type="email" id="email" name="email" required  />
 					</div>
           <div class="contact_input">
-						<label>Votre message</label>
-						<input type="text" id="input:text" />
+						<label for="message">Votre message</label>
+						<textarea id="message" name="message" required></textarea>
 					</div>
           <button type="submit" id="sendButton" class="contact_button contact_button-send">Envoyer</button>
 				</form>

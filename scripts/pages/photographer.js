@@ -10,6 +10,7 @@ const photographBody = document.querySelector('.photograph-body');
 const customSelect = document.querySelector('.custom-select');
 const selected = customSelect.querySelector('.selected');
 const options = customSelect.querySelector('.options');
+const banner = document.querySelector('.photograph-banner');
 
 // --- Récupération de l'ID depuis l'URL ---
 export function getIdFromUrl() {
@@ -94,6 +95,38 @@ document.addEventListener('click', (e) => {
   }
 });
 
+function displayTotalLikes(mediaList, projectId, photographers) {
+  let totalLikes = 0;
+  let price = 0;
+  mediaList.forEach(element => {
+    if (element.photographerId == projectId) {
+      totalLikes += element.likes;
+    }
+  });
+  photographers.forEach(element => {
+    if (element.id == projectId) {
+      price += element.price;
+    }
+  });
+  
+  // Créer ou mettre à jour un élément dans le banner pour afficher le total
+  let likesElement = banner.querySelector('.total-likes');
+  let priceElement = banner.querySelector('.price');
+  
+  if (!likesElement | !priceElement) {
+    likesElement = document.createElement('div');
+    likesElement.classList.add('total-likes');
+    banner.appendChild(likesElement);
+
+    priceElement = document.createElement('div');
+    priceElement.classList.add('price');
+    banner.appendChild(priceElement);
+  }
+  
+  likesElement.innerHTML = `<span>${totalLikes}</span> <img class="banner_heart-icon" src="assets/icons/heart.png" alt="likes"></img>`;
+  priceElement.innerHTML = `<span>${price}</span><p>€ / jour</p>`;
+}
+
 // --- Initialisation générale ---
 function init() {
   projectId = getIdFromUrl();
@@ -102,6 +135,7 @@ function init() {
   const photographers = JSON.parse(localStorage.getItem('photographers'));
 
   trieMedialistByIdPhotographe(mediaList);
+  displayTotalLikes(mediaList, projectId, photographers);
 
   // Affiche header
   PhotographePageHeader(photographers, projectId, photoInfo, photoInfoPortrait);
@@ -109,6 +143,7 @@ function init() {
   // Affiche les médias triés par Popularité par défaut
   const defaultSorted = sortMedia(projetPhotographe, 'popularity');
   photographePageBody(defaultSorted, projectId, photographBody);
+
 }
 
 init();

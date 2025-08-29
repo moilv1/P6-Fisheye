@@ -29,8 +29,15 @@
     margin: 0 2rem;
 }
 
-.contact_input input {
-    height: 150px !important;
+#closeButton{
+    background: none;
+    border: none;
+}
+
+#message{
+    width: 100%;
+    height: 110px;
+    border-radius: 5px;
 }
 
 main{
@@ -112,6 +119,7 @@ form {
     width: 100%;
     flex-direction: column;
     align-items: flex-start;
+    padding-bottom: 10px;
 }
 
 form label {
@@ -129,8 +137,9 @@ form div {
 
 form input {
     width: 100%;
-    height: 68px;
+    height: 50px;
     border: none;
+    font-size: 24px;
     border-radius: 5px;
 }
 .City_Country {
@@ -173,6 +182,7 @@ h1{
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  background-color: #901C1C;
   user-select: none;
 }
 
@@ -181,15 +191,15 @@ h1{
     justify-content: space-between;
     font-weight: bold;
     color: white;
-    width: 150px;
-    height: 40px;
-    border: none;
-    background-color: #901C1C;
+    width: 170px;
+    font-size: medium;
+    height: 56px;
     border-radius: 5px;
+    background-color: #901C1C;
+    border-bottom: 1px solid #901C1C;
     cursor: pointer;
     padding: 8px 10px;
     align-items: center;
-    
 }
 
 .options {
@@ -198,7 +208,6 @@ h1{
   padding: 0;
   display: none;
   border-top: 1px solid #ccc;
-  background-color: #901C1C;
   position: absolute;
   width: 100%;
   z-index: 10;
@@ -207,15 +216,25 @@ h1{
 
 .options li {
     display: flex;
+    align-content: center;
+    justify-content: center;
     padding: 8px 10px;
     background-color: #901C1C;
-    border-bottom: 1px white solid;
     color: #ffffff;
     width: 150px;
     height: 40px;
-    border-width: 80%;
     font-weight: bold;
-    align-content: center;
+    cursor: pointer;
+    position: relative;
+}
+
+.options li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 10%;                 
+  width: 80%;               
+  border-bottom: 1px solid white;
 }
 
 
@@ -324,6 +343,43 @@ h1{
 #caption{
     font-size: 24px;
 }
+
+/* Banner */
+.photograph-banner{
+    position: fixed;
+    display: flex;
+    flex-direction: row;
+    font-size: 20px;
+    align-content: center;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 5px;
+    width: 350px;
+    height: 70px;
+    bottom: -1px;
+    left: 72%;
+    font-weight: bold;
+    background-color: #DB8876;
+}
+.total-likes{
+    padding-left: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.price{
+    padding-right: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.banner_heart-icon{
+    width: 30%;
+}
+
 /* TABLETTES : 768px à 1024px */
 @media screen and (max-width: 1024px) {
     main {
