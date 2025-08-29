@@ -3,7 +3,7 @@ import { PhotographePageHeader, photographePageBody } from '../templates/photogr
 let projetPhotographe = [];
 let projectId;
 
-// Sélecteurs DOM
+// DOM selectors
 const photoInfo = document.querySelector('.photograph-profile-info');
 const photoInfoPortrait = document.querySelector('.photograph-profile-portrait');
 const photographBody = document.querySelector('.photograph-body');
@@ -12,18 +12,18 @@ const selected = customSelect.querySelector('.selected');
 const options = customSelect.querySelector('.options');
 const banner = document.querySelector('.photograph-banner');
 
-// --- Récupération de l'ID depuis l'URL ---
+// --- Retrieving the ID from the URL ---
 export function getIdFromUrl() {
   const urlParams = new URLSearchParams(window.location.search);
   return urlParams.get('id');
 }
 
-// --- Filtrer les médias pour ce photographe ---
+// --- Filter media for this photographer ---
 function trieMedialistByIdPhotographe(data) {
   projetPhotographe = data.filter(element => element.photographerId == projectId);
 }
 
-// --- Trier les médias selon un critère ---
+// --- Sort media by a criterion ---
 function sortMedia(mediaList, criteria) {
   const sorted = [...mediaList];
 
@@ -41,8 +41,8 @@ function sortMedia(mediaList, criteria) {
   return sorted;
 }
 
-// --- Gestion du custom select ---
-let currentValue = 'popularity'; // sélection par défaut
+// --- Custom selection management ---
+let currentValue = 'popularity'; // --- default selection ---
 
 function updateOptionsList() {
   options.querySelectorAll('li').forEach(li => {
@@ -50,10 +50,10 @@ function updateOptionsList() {
   });
 }
 
-// Initialisation de la liste des options
+// --- Initializing the list of options ---
 updateOptionsList();
 
-// Ouvrir / fermer le menu
+// --- Open/close the menu ---
 selected.addEventListener('click', () => {
   const isOpen = options.style.display === 'block';
   options.style.display = isOpen ? 'none' : 'block';
@@ -61,32 +61,32 @@ selected.addEventListener('click', () => {
   selected.querySelector('i').classList.toggle('fa-chevron-down');
 });
 
-// Sélection d’une option
+// --- Selecting an option ---
 options.querySelectorAll('li').forEach(option => {
   option.addEventListener('click', () => {
-    // Réafficher l'ancienne option
+    // Redisplay the old option
     options.querySelector(`li[data-value="${currentValue}"]`).style.display = 'block';
 
-    // Mettre à jour la sélection
+    // Update selection
     currentValue = option.dataset.value;
     selected.childNodes[0].textContent = option.textContent + ' ';
 
-    // Masquer la nouvelle sélection
+    // Hide the new selection
     option.style.display = 'none';
 
-    // Fermer le menu et remettre la flèche
+    // Close the menu and return the arrow
     options.style.display = 'none';
     selected.querySelector('i').classList.remove('fa-chevron-up');
     selected.querySelector('i').classList.add('fa-chevron-down');
 
-    // Trier les médias en fonction de la sélection
+    // Sort media based on selection
     const sorted = sortMedia(projetPhotographe, currentValue);
     photographBody.innerHTML = '';
     photographePageBody(sorted, projectId, photographBody);
   });
 });
 
-// Fermer le menu si clic en dehors
+// Close the menu if you click outside it
 document.addEventListener('click', (e) => {
   if (!customSelect.contains(e.target)) {
     options.style.display = 'none';
@@ -109,7 +109,7 @@ function displayTotalLikes(mediaList, projectId, photographers) {
     }
   });
   
-  // Créer ou mettre à jour un élément dans le banner pour afficher le total
+  // Create or update an item in the banner to display the total
   let likesElement = banner.querySelector('.total-likes');
   let priceElement = banner.querySelector('.price');
   
@@ -137,10 +137,10 @@ function init() {
   trieMedialistByIdPhotographe(mediaList);
   displayTotalLikes(mediaList, projectId, photographers);
 
-  // Affiche header
+  // Header
   PhotographePageHeader(photographers, projectId, photoInfo, photoInfoPortrait);
 
-  // Affiche les médias triés par Popularité par défaut
+  // Displays media sorted by Popularity by default
   const defaultSorted = sortMedia(projetPhotographe, 'popularity');
   photographePageBody(defaultSorted, projectId, photographBody);
 
