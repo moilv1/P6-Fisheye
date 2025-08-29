@@ -65,18 +65,25 @@ function createImageModal() {
   modal.id = 'image-modal';
   modal.className = 'modal';
   modal.style.display = 'none';
+  modal.setAttribute('aria-label', 'image closeup view');
 
   const closeBtn = document.createElement('span');
   closeBtn.className = 'close';
   closeBtn.textContent = 'X';
+  closeBtn.setAttribute('role', 'button');
+  closeBtn.setAttribute('aria-label', 'Close dialog');
 
   const prevBtn = document.createElement('span');
   prevBtn.className = 'nav prev';
   prevBtn.textContent = '<';
+  prevBtn.setAttribute('role', 'link');
+  prevBtn.setAttribute('aria-label', 'Previous slide');
 
   const nextBtn = document.createElement('span');
   nextBtn.className = 'nav next';
   nextBtn.textContent = '>';
+  nextBtn.setAttribute('role', 'link');
+  nextBtn.setAttribute('aria-label', 'Next image');
 
   const mediaContainer = document.createElement('div');
   mediaContainer.id = 'modal-media';
