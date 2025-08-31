@@ -131,12 +131,15 @@ function createMediaItem({ src, title, likes, type }) {
   const likesCount = heartDiv.querySelector('p');
 
   heartDiv.addEventListener('click', () => {
+    const totalLikesElement = document.querySelector('.total-likes span');
     if (heartDiv.getAttribute('data-liked') === 'false') {
       likesCount.textContent = parseInt(likesCount.textContent) + 1;
+      totalLikesElement.textContent = parseInt(totalLikesElement.textContent) + 1;
       heartDiv.setAttribute('data-liked', 'true');
       heartIcon.style.scale = '1.8';
     } else {
       likesCount.textContent = parseInt(likesCount.textContent) - 1;
+      totalLikesElement.textContent = parseInt(totalLikesElement.textContent) - 1;
       heartDiv.setAttribute('data-liked', 'false');
       heartIcon.style.scale = '1';
     }

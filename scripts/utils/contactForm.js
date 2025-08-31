@@ -16,15 +16,13 @@ function displayModal() {
   main.style.opacity = '0.5';
   html.style.overflow = 'hidden';
   getNameByID(idUrl, photographers);
+  modal.removeAttribute('hidden');
 }
 function closeModal() {
   modal.style.display = 'none';
   main.style.opacity = '1';
   html.style.overflow = 'visible';
-}
-function submitModal() {
-  window.location.href = `photographer.html?id=${idUrl}`;
-  closeModal();
+  modal.setAttribute('hidden', '');
 }
 
 function getNameByID(id, data) {
@@ -38,6 +36,22 @@ contactButton.addEventListener('click', displayModal);
 closeButton.addEventListener('click', closeModal);
 sendButton.addEventListener('click', (event) => {
   event.preventDefault();
-  submitModal();
+  const prenom = document.getElementById('prenom').value.trim();
+  const nom = document.getElementById('nom').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const message = document.getElementById('message').value.trim();
+  console.log('=== Formulaire de contact soumis ===');
+  console.log('Prénom :', prenom);
+  console.log('Nom :', nom);
+  console.log('Email :', email);
+  console.log('Message :', message);
 } );
 
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') {
+    // Vérifier que le modal est visible
+    if (!modal.hasAttribute('hidden')) {
+      closeModal();
+    }
+  }
+});

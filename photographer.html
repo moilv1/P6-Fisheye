@@ -40,13 +40,13 @@
     <div id="contact_modal" role="dialog" aria-labelledby="contactTitle" aria-modal="true" hidden>
 			<div class="modal-info">
 				<div class="contact_header">
-          <h2 >Contactez-moi</h2>
+          <h2 id="contactTitle">Contactez-moi</h2>
           <button id="closeButton" type="button" aria-label="Fermer le formulaire de contact">
             <img src="assets/icons/close.svg" alt="" aria-hidden="true" /> <!-- icône décorative -->
           </button>
         </div>
         <div class="contact_photograph-info"></div>
-				<form aria-describedby="contactTitle">
+				<form aria-labelledby="contactTitle">
 					<div>
 						<label for="prenom">Prénom</label>
 						<input type="text" id="prenom" name="prenom" required  />
